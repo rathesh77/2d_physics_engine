@@ -6,7 +6,8 @@
 
 #include "Constants.hpp"
 
-class Body {
+class Body
+{
 public:
   sf::Vector2f getPosition();
 
