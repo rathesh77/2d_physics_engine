@@ -35,7 +35,6 @@ public:
   float getX();
   float getY();
 
-  void loadSpriteForward(int);
   void jump();
 
   bool isOverlaping();
@@ -53,8 +52,6 @@ public:
 
 protected:
   std::string m_type;
-
-  sf::Texture *m_texture;
 
   int m_width;
   int m_height;

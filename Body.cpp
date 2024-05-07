@@ -4,15 +4,6 @@
 
 Body::Body()
 {
-  this->m_direction = 0;
-  this->m_velocityX = 0.0f;
-  this->m_accOffset = 0.0f;
-  this->m_maxVelocityX = 0.0f;
-  this->m_accOffset = 0;
-  this->m_width = 30;
-  this->m_height = 30;
-  this->m_body = sf::RectangleShape(sf::Vector2f(this->m_width, this->m_height));
-  this->m_body.setPosition(0, WINDOW_HEIGHT + (16 * 2));
   this->m_type = "NULL";
   this->m_ground = WINDOW_HEIGHT;
 }

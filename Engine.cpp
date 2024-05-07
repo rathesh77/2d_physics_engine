@@ -4,7 +4,7 @@
 Engine::Engine(sf::RenderWindow *window)
 {
   this->m_window = window;
-  m_bodies = new Body[bodies_count + 1];
+  this->m_bodies = new Body[bodies_count + 1];
   for (int i = 0; i < bodies_count; i++)
   {
     int x = (rand() % WINDOW_WIDTH - 20);
@@ -29,7 +29,7 @@ void Engine::tick(sf::Clock *clock)
       if (event.mouseButton.button == sf::Mouse::Left)
       {
         Body *bodies_tmp = new Body[++bodies_count + 1];
-        memcpy(bodies_tmp, m_bodies, sizeof(Body) * (bodies_count - 1));
+        memcpy(bodies_tmp, this->m_bodies, sizeof(Body) * (bodies_count - 1));
         sf::Vector2i mousePos = sf::Mouse::getPosition(*this->m_window);
         int x = mousePos.x;
         int y = mousePos.y;
@@ -39,8 +39,7 @@ void Engine::tick(sf::Clock *clock)
         bodies_tmp[bodies_count - 1] = Body(x, y, "test");
 
         bodies_tmp[bodies_count] = Body();
-        // delete []m_bodies;
-        m_bodies = bodies_tmp;
+        this->m_bodies = bodies_tmp;
       }
       break;
     }
