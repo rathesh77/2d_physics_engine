@@ -36,8 +36,16 @@ void Body::loop(Body *bodies)
   this->resetY();
 }
 
-sf::Vector2f Body::getPosition() { return this->m_body.getPosition(); }
+Vector2d Body::getPosition()
+{
+  sf::Vector2f pos = this->m_body.getPosition();
+  return Vector2d(pos.x, pos.y);
+}
 
+sf::Vector2f Body::getPositionVector2f()
+{
+  return this->m_body.getPosition();
+}
 void Body::setDirectionX(int direction)
 {
   if (direction != 0)
@@ -65,12 +73,16 @@ std::map<std::string, std::vector<Body *>> Body::detectCollisions(Body *bodies)
 {
   std::map<std::string, std::vector<Body *>> collidedObjects = {
       {"up", std::vector<Body *>{}},
-      {"down", std::vector<Body *>{}},
-      {"side", std::vector<Body *>{}}};
+      {"up-left", std::vector<Body *>{}},
+      {"up-right", std::vector<Body *>{}},
 
+      {"down", std::vector<Body *>{}},
+      {"side", std::vector<Body *>{}}
+
+  };
   Body nextPos = Body();
   nextPos.m_body.setPosition(
-      this->getPosition() +
+      this->getPositionVector2f() +
       sf::Vector2f(this->m_velocityX, -this->m_velocityY));
   nextPos.m_width = this->m_width;
   nextPos.m_height = this->m_height;
@@ -85,7 +97,7 @@ std::map<std::string, std::vector<Body *>> Body::detectCollisions(Body *bodies)
       bodies++;
       continue;
     }
-    sf::Vector2f objectPos = bodies->getPosition();
+    sf::Vector2f objectPos = bodies->getPositionVector2f();
 
     if (this->collides(&nextPos, bodies))
     {
@@ -93,7 +105,21 @@ std::map<std::string, std::vector<Body *>> Body::detectCollisions(Body *bodies)
       {
         if (this->getX() + this->m_width >= objectPos.x + 2 &&
             this->getX() <= objectPos.x + bodies->m_width - 2)
-          collidedObjects["up"].push_back(bodies);
+        {
+          if (this->getX() + this->m_width < objectPos.x + (this->m_width / 2))
+          {
+            collidedObjects["up-left"].push_back(bodies);
+          }
+          else if (this->getX() > objectPos.x + bodies->m_width - (this->m_width / 2))
+          {
+            collidedObjects["up-right"].push_back(bodies);
+          }
+          else
+          {
+
+            collidedObjects["up"].push_back(bodies);
+          }
+        }
       }
       else if (this->getY() >= objectPos.y + bodies->m_height)
       {
@@ -116,7 +142,28 @@ void Body::handleCollision(Body *bodies)
   bool hit = false;
   for (Body *body : collidedObjects["up"])
   {
-    sf::Vector2f position = body->getPosition();
+    sf::Vector2f position = body->getPositionVector2f();
+    hit = true;
+    // this->m_ground = position.y;
+    this->m_velocityY = this->getY() - (position.y - this->m_height);
+  }
+  for (Body *body : collidedObjects["up-right"])
+  {
+    // this->m_body.setOrigin(sf::Vector2f(0,0) + sf::Vector2f(this->m_width, this->m_height));
+
+    sf::Vector2f position = body->getPositionVector2f();
+    hit = true;
+    // this->m_ground = position.y;
+    this->m_velocityY = this->getY() - (position.y - this->m_height);
+    /*this->m_body.setOrigin(this->m_width, this->m_height);
+    this->m_body.move(this->m_width, this->m_height);
+    this->m_body.rotate(10);*/
+    // this->m_velocityY = 0;
+  }
+  for (Body *body : collidedObjects["up-left"])
+  {
+
+    sf::Vector2f position = body->getPositionVector2f();
     hit = true;
     // this->m_ground = position.y;
     this->m_velocityY = this->getY() - (position.y - this->m_height);
@@ -151,6 +198,8 @@ void Body::handleCollision(Body *bodies)
   {
     this->m_overlap = true;
   }
+  // we reset the origin
+  // this->m_body.setOrigin(0,0);
 }
 
 bool Body::compare(Body *a, Body *b) { return a == b; }
@@ -232,8 +281,8 @@ float Body::lerp(float current, float goal, float dt)
 
 float Body::getVelocityX() { return this->m_velocityX; }
 
-float Body::getX() { return this->getPosition().x; }
+float Body::getX() { return this->getPositionVector2f().x; }
 
-float Body::getY() { return this->getPosition().y; }
+float Body::getY() { return this->getPositionVector2f().y; }
 
 bool Body::isOverlaping() { return this->m_overlap; }

@@ -3,7 +3,7 @@ LIB = SFML/build/lib/
 INCLUDE = SFML/include/
 MODULES = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lsfml-main
 EXECUTABLE = main
-SOURCES = Engine.cpp Body.cpp main.cpp
+SOURCES = Vector2d.cpp Line.cpp CollisionDetector.cpp Engine.cpp Body.cpp main.cpp
 
 clean: main.exe
 	./clean.sh ${EXECUTABLE}.exe

@@ -1,6 +1,7 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include "body.hpp"
+#include "CollisionDetector.hpp"
 
 class Engine
 {
@@ -13,4 +14,5 @@ private:
   sf::RenderWindow *m_window;
   Body *m_bodies;
   int bodies_count = 0;
+  sf::RectangleShape rect;
 };

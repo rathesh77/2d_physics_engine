@@ -12,6 +12,7 @@ Engine::Engine(sf::RenderWindow *window)
     this->m_bodies[i] = Body(x, y, "test");
   }
   this->m_bodies[bodies_count] = Body();
+  rect = sf::RectangleShape(sf::Vector2f(20, 20));
 }
 
 void Engine::tick(sf::Clock *clock)
@@ -52,4 +53,10 @@ void Engine::tick(sf::Clock *clock)
     this->m_bodies[i].loop(m_bodies);
     this->m_window->draw(this->m_bodies[i].m_body);
   }
+  rect.setFillColor(sf::Color(255, 0, 0));
+  rect.setOrigin(10, 10);
+  rect.setPosition((sf::Vector2f)sf::Mouse::getPosition(*this->m_window));
+  rect.rotate(90);
+
+  this->m_window->draw(rect);
 }

@@ -5,11 +5,13 @@
 #include <SFML/Graphics.hpp>
 
 #include "Constants.hpp"
+#include "Vector2d.hpp"
 
 class Body
 {
 public:
-  sf::Vector2f getPosition();
+  Vector2d getPosition();
+  sf::Vector2f getPositionVector2f();
 
   Body(float, float, std::string);
 
