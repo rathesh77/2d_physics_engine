@@ -12,6 +12,19 @@ bool CollisionDetector::detectCollisionBetweenSquaredShapes(Body *a, Body *b) {
 
 Line* CollisionDetector::findAxis(Body *a) {
 
-  
-  return new Line[2]{};
+  float angle = a->getAngle();
+
+  Vector2d position = a->getPosition();
+  Vector2d center = position;
+
+  Vector2d direction(1, 0);
+
+  Line axisX = Line(center, direction.rotate(angle));
+  Line axisY =  Line(center, direction.rotate(angle + 90));
+
+  Line *axis = new Line[2];
+  axis[0] = axisX;
+  axis[1] = axisY;
+
+  return axis;
 }

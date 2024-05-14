@@ -33,6 +33,9 @@ public:
 
   int getDirection();
   float getVelocityX();
+  float getWidth();
+  float getAngle();
+  float getHeight();
 
   float getX();
   float getY();
@@ -44,7 +47,7 @@ public:
   std::map<std::string, std::vector<Body *>>
   detectCollisions(Body *);
   void handleCollision(Body *);
-
+  void rotate(float);
   bool collides(Body *, Body *);
   bool compare(Body *, Body *);
 
@@ -53,6 +56,8 @@ public:
   sf::RectangleShape m_body;
 
 protected:
+  float m_angle = 0; // degrees
+  float m_theta;     // radians
   std::string m_type;
 
   int m_width;

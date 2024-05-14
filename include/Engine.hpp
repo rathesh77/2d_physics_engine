@@ -14,5 +14,5 @@ private:
   sf::RenderWindow *m_window;
   Body *m_bodies;
   int bodies_count = 0;
-  sf::RectangleShape rect;
+  Body rect;
 };

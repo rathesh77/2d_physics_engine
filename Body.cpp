@@ -279,6 +279,20 @@ float Body::lerp(float current, float goal, float dt)
   return goal;
 }
 
+
+void Body::rotate(float angle)
+{
+  this->m_angle += angle;
+  this->m_body.rotate(angle);
+}
+
+
+float Body::getWidth() { return this->m_width; }
+
+float Body::getHeight() { return this->m_height; }
+
+float Body::getAngle() { return this->m_angle; }
+
 float Body::getVelocityX() { return this->m_velocityX; }
 
 float Body::getX() { return this->getPositionVector2f().x; }

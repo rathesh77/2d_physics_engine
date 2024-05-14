@@ -7,7 +7,6 @@
 class Vector2d
 {
 public:
-
   Vector2d(float, float);
   Vector2d();
 
@@ -17,9 +16,11 @@ public:
   float magnitude();
   float squaredMagnitude();
   Vector2d direction();
-
+  Vector2d rotate(float);
   Vector2d componentProduct(Vector2d);
   Vector2d add(Vector2d);
+  Vector2d mult(float);
+  Vector2d sub(Vector2d);
 
   // u_ methods override current Vector object x and y coords
   void u_componentProduct(Vector2d);

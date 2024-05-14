@@ -6,7 +6,7 @@ class CollisionDetector
 {
 public:
   static bool detectCollisionBetweenSquaredShapes(Body*, Body*);
-  Line* findAxis(Body *);
+  static Line* findAxis(Body *);
 
 private:
   CollisionDetector();
