@@ -7,6 +7,7 @@ class CollisionDetector
 public:
   static bool detectCollisionBetweenSquaredShapes(Body*, Body*);
   static Line* findAxis(Body *);
+  static Vector2d* findCorners(Body *);
 
 private:
   CollisionDetector();

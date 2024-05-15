@@ -20,6 +20,8 @@ public:
   Vector2d componentProduct(Vector2d);
   Vector2d add(Vector2d);
   Vector2d mult(float);
+  Vector2d div(float);
+
   Vector2d sub(Vector2d);
 
   // u_ methods override current Vector object x and y coords

@@ -9,12 +9,12 @@ Body::Body()
 }
 
 // x, y, type
-Body::Body(float posX, float posY, std::string type)
+Body::Body(float posX, float posY, float width, float height, std::string type)
 {
   this->m_type = type;
 
-  this->m_width = 30;
-  this->m_height = 30;
+  this->m_width = width;
+  this->m_height = height;
   this->m_body = sf::RectangleShape(sf::Vector2f(this->m_width, this->m_height));
   this->m_body.setPosition(posX, posY);
   this->m_body.setFillColor(sf::Color(rand() % 256, rand() % 256, rand() % 256));

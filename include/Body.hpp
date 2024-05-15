@@ -13,7 +13,7 @@ public:
   Vector2d getPosition();
   sf::Vector2f getPositionVector2f();
 
-  Body(float, float, std::string);
+  Body(float, float, float, float, std::string);
 
   Body();
 

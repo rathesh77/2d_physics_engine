@@ -44,6 +44,10 @@ Vector2d Vector2d::mult(float scalar)
 {
   return Vector2d(this->m_x * scalar, this->m_y * scalar);
 }
+Vector2d Vector2d::div(float scalar)
+{
+  return Vector2d(this->m_x / scalar, this->m_y / scalar);
+}
 Vector2d Vector2d::sub(Vector2d vec)
 {
   return Vector2d(this->m_x - vec.m_x, this->m_y - vec.m_y);
