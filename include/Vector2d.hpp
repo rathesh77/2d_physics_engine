@@ -19,13 +19,12 @@ public:
   float squaredMagnitude();
   float angle();
 
-  Vector2d direction();
+  Vector2d normalize();
   Vector2d rotate(float);
   Vector2d componentProduct(Vector2d);
   Vector2d add(Vector2d);
   Vector2d mult(float);
   Vector2d div(float);
-  Vector2d normalize();
 
   Vector2d sub(Vector2d);
 

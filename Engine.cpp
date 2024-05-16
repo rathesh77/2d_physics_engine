@@ -147,6 +147,19 @@ void Engine::tick(sf::Clock *clock)
   this->drawRect(sf::Vector2f(5,5), projection4_1, sf::Color(0, 0, 255));
   this->drawRect(sf::Vector2f(5,5), projection4_2, sf::Color(0, 0, 255));
 
+  this->drawLine(corners[0], projection1_1, sf::Color::Black);
+  this->drawLine(corners[0], projection1_2, sf::Color::Black);
+
+  this->drawLine(corners[1], projection2_1, sf::Color::Black);
+  this->drawLine(corners[1], projection2_2, sf::Color::Black);
+
+  this->drawLine(corners[2], projection3_1, sf::Color::Black);
+  this->drawLine(corners[2], projection3_2, sf::Color::Black);
+
+  this->drawLine(corners[3], projection4_1, sf::Color::Black);
+  this->drawLine(corners[3], projection4_2, sf::Color::Black);
+
+
 
   Vector2d dest3 = targetAxis[0].m_position.add(targetAxis[0].m_direction);
   Vector2d dest4 = targetAxis[1].m_position.add(targetAxis[1].m_direction);

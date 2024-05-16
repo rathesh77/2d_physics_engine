@@ -54,16 +54,24 @@ Vector2d* CollisionDetector::findCorners(Body *a) {
 
 Vector2d CollisionDetector::projectCornerOnAxis(Vector2d corner, Line axis, Body *targetRect) {
 
-/*
-  Vector2d fromTargetRectCenterToCorner = corner.sub(targetRect->getPosition());
-  Vector2d horizontalLine = fromTargetRectCenterToCorner.rotate(-fromTargetRectCenterToCorner.angle());
-  Vector2d projectedPoint = axis.m_position.add(horizontalLine.rotate(axis.m_direction.angle()));
 
+  // float dx = cos(axis.m_direction.angle() * (M_PI / 180));
+  // float dy = sin(axis.m_direction.angle() * (M_PI / 180));
+  // float dotValue = (dx * (corner.m_x - targetRect->getPosition().m_x)) + (dy * (corner.m_y - targetRect->getPosition().m_y));
+  // return Vector2d(targetRect->getPosition().m_x + (dx * dotValue), targetRect->getPosition().m_y + (dy * dotValue));
 
-  return projectedPoint;*/
+  // a dot b = |a| * |b| * cos(angle)
 
-  float dx = cos(axis.m_direction.angle() * (M_PI / 180));
-  float dy = sin(axis.m_direction.angle() * (M_PI / 180));
-  float dotValue = dx * (corner.m_x - targetRect->getPosition().m_x) + dy * (corner.m_y - targetRect->getPosition().m_y);
-  return Vector2d(targetRect->getPosition().m_x + dx * dotValue, targetRect->getPosition().m_y + dy * dotValue);
+  // cos(theta) = adjacent / hypothenuse
+  // sin(theta) = opposite / hypothenuse
+
+  // cos(angle) = |a| / |b|
+  // |a| = cos(angle) * |b|
+  // => a hat dot b = cos(angle) * |b|
+
+  float angleInRadians = axis.m_direction.angle() * (M_PI / 180);
+  float dotValue = axis.m_direction.normalize().dotProduct(corner.sub(axis.m_position));
+  float x = cos(angleInRadians) * dotValue;
+  float y = sin(angleInRadians) * dotValue;
+  return axis.m_position.add(Vector2d(x, y));
 }

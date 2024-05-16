@@ -18,7 +18,7 @@ float Vector2d::squaredMagnitude()
   return (this->m_x * this->m_x) + (this->m_y * this->m_y);
 }
 
-Vector2d Vector2d::direction()
+Vector2d Vector2d::normalize()
 {
   if (this->magnitude() == 0)
     return Vector2d(0,0);
@@ -79,3 +79,4 @@ Vector2d Vector2d::rotate(float angle)
   double radians = angle * (M_PI / 180);
   return Vector2d((cos(radians) * this->m_x) - (sin(radians) * this->m_y), (sin(radians) * this->m_x) + (cos(radians) * this->m_y));
 }
+
