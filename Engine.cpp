@@ -12,8 +12,13 @@ Engine::Engine(sf::RenderWindow *window)
     this->m_bodies[i] = Body(x, y, 30, 30, "test");
   }
   this->m_bodies[bodies_count] = Body();
-  rect = Body(0, 0, 80, 40, "rectangle");
+  rect = Body(0, 0, 40, 80, "rectangle");
   rect.m_body.setOrigin(rect.getWidth() / 2, rect.getHeight() / 2);
+
+  targetRect = Body(400, 200, 40, 80, "rectangle");
+  targetRect.m_body.setOrigin(targetRect.getWidth() / 2, targetRect.getHeight() / 2);
+  targetRect.m_body.setFillColor(sf::Color(0,255,0));
+  targetRect.rotate(20);
 }
 
 void Engine::tick(sf::Clock *clock)
@@ -58,9 +63,10 @@ void Engine::tick(sf::Clock *clock)
   rect.m_body.setFillColor(sf::Color(255, 0, 0));
   // rect.m_body.setOrigin(10, 10);
   rect.m_body.setPosition((sf::Vector2f)sf::Mouse::getPosition(*this->m_window));
-  rect.rotate(1);
+  //rect.rotate(1);
 
   Line *axis = CollisionDetector::findAxis(&rect);
+  Line *targetAxis = CollisionDetector::findAxis(&targetRect);
 
   Vector2d dest1 = axis[0].m_position.add(axis[0].m_direction);
   Vector2d dest2 = axis[1].m_position.add(axis[1].m_direction);
@@ -110,4 +116,65 @@ void Engine::tick(sf::Clock *clock)
   this->m_window->draw(rec2);
   this->m_window->draw(rec3);
   this->m_window->draw(rec4);
+
+  Vector2d projection1_1 = CollisionDetector::projectCornerOnAxis(corners[0], targetAxis[0], &targetRect);
+    Vector2d projection1_2 = CollisionDetector::projectCornerOnAxis(corners[0], targetAxis[1], &targetRect);
+
+
+  Vector2d projection2_1 = CollisionDetector::projectCornerOnAxis(corners[1], targetAxis[0], &targetRect);
+    Vector2d projection2_2 = CollisionDetector::projectCornerOnAxis(corners[1], targetAxis[1], &targetRect);
+
+  Vector2d projection3_1 = CollisionDetector::projectCornerOnAxis(corners[2], targetAxis[0], &targetRect);
+    Vector2d projection3_2 = CollisionDetector::projectCornerOnAxis(corners[2], targetAxis[1], &targetRect);
+
+
+  Vector2d projection4_1 = CollisionDetector::projectCornerOnAxis(corners[3], targetAxis[0], &targetRect);
+    Vector2d projection4_2 = CollisionDetector::projectCornerOnAxis(corners[3], targetAxis[1], &targetRect);
+
+
+  this->m_window->draw(targetRect.m_body);
+
+
+  this->drawRect(sf::Vector2f(5,5), projection1_1, sf::Color(0, 0, 255));
+  this->drawRect(sf::Vector2f(5,5), projection1_2, sf::Color(0, 0, 255));
+
+  this->drawRect(sf::Vector2f(5,5), projection2_1, sf::Color(0, 0, 255));
+  this->drawRect(sf::Vector2f(5,5), projection2_2, sf::Color(0, 0, 255));
+
+  this->drawRect(sf::Vector2f(5,5), projection3_1, sf::Color(0, 0, 255));
+  this->drawRect(sf::Vector2f(5,5), projection3_2, sf::Color(0, 0, 255));
+
+  this->drawRect(sf::Vector2f(5,5), projection4_1, sf::Color(0, 0, 255));
+  this->drawRect(sf::Vector2f(5,5), projection4_2, sf::Color(0, 0, 255));
+
+
+  Vector2d dest3 = targetAxis[0].m_position.add(targetAxis[0].m_direction);
+  Vector2d dest4 = targetAxis[1].m_position.add(targetAxis[1].m_direction);
+
+  this->drawLine(targetAxis[0].m_position, dest3, sf::Color::Black);
+  this->drawLine(targetAxis[1].m_position, dest4, sf::Color::Black);
+
+
+}
+
+void Engine::drawLine(Vector2d pointOne, Vector2d pointTwo, sf::Color color) {
+  
+    sf::Vertex vertices[2] =
+      {
+          sf::Vertex(sf::Vector2f(pointOne.m_x, pointOne.m_y), color),
+          sf::Vertex(sf::Vector2f(pointTwo.m_x, pointTwo.m_y), color),
+      };
+
+
+  this->m_window->draw(vertices, 2, sf::Lines);
+}
+
+void Engine::drawRect(sf::Vector2f size, Vector2d position, sf::Color fillColor) {
+  
+  sf::RectangleShape rect(size);
+
+  rect.setPosition(position.m_x, position.m_y);
+  rect.setOrigin(size.x / 2, size.y / 2);
+  rect.setFillColor(sf::Color(0, 0, 255));
+  this->m_window->draw(rect);
 }

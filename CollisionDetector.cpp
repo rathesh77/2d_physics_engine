@@ -1,4 +1,5 @@
 #include "CollisionDetector.hpp"
+#include <iostream>
 
 CollisionDetector::CollisionDetector() {
 
@@ -35,15 +36,12 @@ Vector2d* CollisionDetector::findCorners(Body *a) {
 
   Vector2d center = a->getPosition();
 
-  Vector2d direction = Vector2d(1,0).rotate(a->getAngle()).mult(10);
-
-  Vector2d topLeft = center.add(direction.rotate(90 + 45));
-  Vector2d topRight = center.add(direction.rotate(45).mult(1));
+  Vector2d topLeft = center.sub(Vector2d(a->getWidth() / 2, a->getHeight() / 2).rotate(a->getAngle()));
+  Vector2d topRight = center.add(Vector2d(a->getWidth() / 2, -a->getHeight() / 2).rotate(a->getAngle()));
 
 
-  Vector2d bottomLeft = center.add(direction.rotate(-(90 + 45)).mult(1));
-  Vector2d bottomRight = center.add(direction.rotate(-45).mult(1));
-
+  Vector2d bottomLeft = center.sub(Vector2d(a->getWidth() / 2, -a->getHeight() / 2).rotate(a->getAngle()));
+  Vector2d bottomRight = center.add(Vector2d(a->getWidth() / 2, a->getHeight() / 2).rotate(a->getAngle()));
   Vector2d *corners = new Vector2d[4];
 
   corners[0] = topLeft;
@@ -52,4 +50,20 @@ Vector2d* CollisionDetector::findCorners(Body *a) {
   corners[3] = bottomRight;
 
   return corners;
+}
+
+Vector2d CollisionDetector::projectCornerOnAxis(Vector2d corner, Line axis, Body *targetRect) {
+
+/*
+  Vector2d fromTargetRectCenterToCorner = corner.sub(targetRect->getPosition());
+  Vector2d horizontalLine = fromTargetRectCenterToCorner.rotate(-fromTargetRectCenterToCorner.angle());
+  Vector2d projectedPoint = axis.m_position.add(horizontalLine.rotate(axis.m_direction.angle()));
+
+
+  return projectedPoint;*/
+
+  float dx = cos(axis.m_direction.angle() * (M_PI / 180));
+  float dy = sin(axis.m_direction.angle() * (M_PI / 180));
+  float dotValue = dx * (corner.m_x - targetRect->getPosition().m_x) + dy * (corner.m_y - targetRect->getPosition().m_y);
+  return Vector2d(targetRect->getPosition().m_x + dx * dotValue, targetRect->getPosition().m_y + dy * dotValue);
 }

@@ -4,6 +4,8 @@
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 600
 
+#include <math.h>
+
 class Vector2d
 {
 public:
@@ -15,12 +17,15 @@ public:
 
   float magnitude();
   float squaredMagnitude();
+  float angle();
+
   Vector2d direction();
   Vector2d rotate(float);
   Vector2d componentProduct(Vector2d);
   Vector2d add(Vector2d);
   Vector2d mult(float);
   Vector2d div(float);
+  Vector2d normalize();
 
   Vector2d sub(Vector2d);
 
@@ -28,7 +33,7 @@ public:
   void u_componentProduct(Vector2d);
   void u_add(Vector2d);
 
-  float dotProduct(float); // scalar product
+  float dotProduct(Vector2d); // scalar product
 };
 
 #endif /* VECTOR2D_H_ */

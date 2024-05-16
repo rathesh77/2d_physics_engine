@@ -8,6 +8,8 @@ class Engine
 public:
   Engine(sf::RenderWindow *);
   void tick(sf::Clock *);
+  void drawLine(Vector2d, Vector2d, sf::Color);
+  void drawRect(sf::Vector2f, Vector2d, sf::Color);
 
 private:
   int frameCount = 0;
@@ -15,4 +17,6 @@ private:
   Body *m_bodies;
   int bodies_count = 0;
   Body rect;
+  Body targetRect;
+
 };

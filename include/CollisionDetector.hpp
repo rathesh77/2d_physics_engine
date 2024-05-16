@@ -8,6 +8,7 @@ public:
   static bool detectCollisionBetweenSquaredShapes(Body*, Body*);
   static Line* findAxis(Body *);
   static Vector2d* findCorners(Body *);
+  static Vector2d projectCornerOnAxis(Vector2d, Line, Body *);
 
 private:
   CollisionDetector();
