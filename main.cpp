@@ -12,12 +12,12 @@ int main()
   window.setFramerateLimit(40);
   window.setKeyRepeatEnabled(true);
   // window.setSize(sf::Vector2u(800, 600));
-  Engine *e = new Engine(&window);
+  Engine e(&window);
   sf::Clock clock;
   while (window.isOpen())
   {
     window.clear(sf::Color(255, 255, 255));
-    e->tick(&clock);
+    e.tick(&clock);
     window.display();
   }
 

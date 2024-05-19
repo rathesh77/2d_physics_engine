@@ -7,6 +7,8 @@ class Engine
 {
 public:
   Engine(sf::RenderWindow *);
+  ~Engine();
+
   void tick(sf::Clock *);
   void drawLine(Vector2d, Vector2d, sf::Color);
   void drawRect(sf::Vector2f, Vector2d, sf::Color);
