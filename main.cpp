@@ -8,7 +8,7 @@ int main()
 {
 
   sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT),
-                          "Physics engine");
+                          "Physics engine", sf::Style::Close);
   window.setFramerateLimit(40);
   window.setKeyRepeatEnabled(true);
   // window.setSize(sf::Vector2u(800, 600));
