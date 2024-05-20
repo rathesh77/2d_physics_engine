@@ -43,7 +43,9 @@ void Engine::tick(sf::Clock *clock)
       if (event.mouseButton.button == sf::Mouse::Left)
       {
         Body *bodies_tmp = new Body[++bodies_count + 1];
-        memcpy(bodies_tmp, this->m_bodies, sizeof(Body) * (bodies_count - 1));
+        for (int i = 0; i < bodies_count - 1; i++)
+          bodies_tmp[i] = this->m_bodies[i];
+        
         sf::Vector2i mousePos = sf::Mouse::getPosition(*this->m_window);
         int x = mousePos.x;
         int y = mousePos.y;
@@ -51,8 +53,8 @@ void Engine::tick(sf::Clock *clock)
         std::cout << "y: " + std::to_string(y) << std::endl;
 
         bodies_tmp[bodies_count - 1] = Body(x, y, 30, 30, "test");
-
         bodies_tmp[bodies_count] = Body();
+        delete []this->m_bodies;
         this->m_bodies = bodies_tmp;
         bodies_tmp = NULL;
       }
