@@ -1,5 +1,10 @@
-#include "body.hpp"
+#ifndef CollisionDector_H
+#define CollisionDector_H
+
+
+#include "Body.hpp"
 #include "Line.hpp"
+#include <iostream>
 
 struct ProjectionCorner {
   Vector2d corner;
@@ -23,3 +28,5 @@ private:
   CollisionDetector();
 
 };
+
+#endif /* CollisionDector_H */

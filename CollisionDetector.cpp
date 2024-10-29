@@ -1,5 +1,4 @@
 #include "CollisionDetector.hpp"
-#include <iostream>
 
 CollisionDetector::CollisionDetector()
 {

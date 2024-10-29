@@ -2,7 +2,7 @@
 #include <iostream>
 
 #include "Constants.hpp"
-#include "Engine.hpp"
+#include "World.hpp"
 
 int main()
 {
@@ -12,7 +12,7 @@ int main()
   window.setFramerateLimit(40);
   window.setKeyRepeatEnabled(true);
   // window.setSize(sf::Vector2u(800, 600));
-  Engine e(&window);
+  World e(&window);
   sf::Clock clock;
   while (window.isOpen())
   {

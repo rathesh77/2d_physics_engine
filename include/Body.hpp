@@ -6,6 +6,9 @@
 
 #include "Constants.hpp"
 #include "Vector2d.hpp"
+#include "WorldParameters.hpp"
+
+#include <iostream>
 
 class Body
 {
@@ -13,7 +16,7 @@ public:
   Vector2d getPosition();
   sf::Vector2f getPositionVector2f();
 
-  Body(float, float, float, float, std::string);
+  Body(WorldParameters, float, float, float, float, std::string);
 
   Body();
 
@@ -74,17 +77,8 @@ protected:
   float m_initialVelocityY = 9.45f;
   float m_velocityY = 0;
 
-  float m_initialGravity = 0.6f;
-  float m_gravity = m_initialGravity;
-
-  bool m_lookingRight = true;
-  bool m_flipped = false;
-  bool m_isJumping = true;
-
   float m_ground;
-  bool m_overlap = false;
-  bool m_decelerating = false;
-  bool m_jumpEnabled = false;
+  WorldParameters m_WorldParameters;
 };
 
 #endif /* BODY_H_ */
